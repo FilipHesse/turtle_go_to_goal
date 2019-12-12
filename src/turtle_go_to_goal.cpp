@@ -1,5 +1,6 @@
 #include "ros/ros.h"
 #include<math.h>
+#include "turtlesim/Pose.h"
 
 using namespace std;
 
@@ -12,8 +13,12 @@ float EuclidianDistance(float x_g, float y_g, float x_r, float y_r)
 }
 
 // Manage here the callback
-
+void poseCallback(const turtlesim::Pose::ConstPtr& msg)
+{
+  ROS_INFO("I heard: [%s]", to_string(msg->x));
+}
 //
+
 
 
 int main(int argc, char **argv)
@@ -30,7 +35,8 @@ int main(int argc, char **argv)
   int counter = 0;
 
   // Manage here the publisher and the subscriber
-
+  // Subscribe to Pose of turtlesim
+  ros::Subscriber sub_pose = n.subscribe("turtle1/pose", 60, poseCallback);
   //
 
   while (ros::ok())
