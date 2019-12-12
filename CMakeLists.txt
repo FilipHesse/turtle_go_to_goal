@@ -1,6 +1,3 @@
-cmake_minimum_required(VERSION 2.8.3)
-project(turtle_go_to_goal)
-
 ## Compile as C++11, supported in ROS Kinetic and newer
 add_compile_options(-std=c++11)
 
@@ -11,6 +8,8 @@ find_package(catkin REQUIRED COMPONENTS
   roscpp
   rospy
   std_msgs
+  geometry_msgs
+  turtlesim
 )
 
 ## System dependencies are found with CMake's conventions
@@ -105,7 +104,7 @@ find_package(catkin REQUIRED COMPONENTS
 catkin_package(
 #  INCLUDE_DIRS include
 #  LIBRARIES turtle_go_to_goal
-#  CATKIN_DEPENDS roscpp rospy std_msgs
+  CATKIN_DEPENDS roscpp rospy std_msgs geometry_msgs turtlesim
 #  DEPENDS system_lib
 )
 
@@ -133,7 +132,7 @@ include_directories(
 ## Declare a C++ executable
 ## With catkin_make all packages are built within a single CMake context
 ## The recommended prefix ensures that target names across packages don't collide
- add_executable(turtle_go_to_goal src/turtle_go_to_goal.cpp)
+add_executable(${PROJECT_NAME}_node src/turtle_go_to_goal.cpp)
 
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
@@ -146,9 +145,9 @@ include_directories(
 # add_dependencies(${PROJECT_NAME}_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 
 ## Specify libraries to link a library or executable target against
-# target_link_libraries(${PROJECT_NAME}_node
-#   ${catkin_LIBRARIES}
-# )
+target_link_libraries(${PROJECT_NAME}_node
+  ${catkin_LIBRARIES}
+)
 
 #############
 ## Install ##
